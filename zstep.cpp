@@ -102,8 +102,7 @@ int main() {
                 tick = (tick + 1) % 96;
 
                 // send queued pattern change
-                if ((tick == 0) && (!pattern_change.empty())) {
-                    std::cout << "sending pattern change" << std::endl;
+                if ((tick == 95) && (!pattern_change.empty())) {
                     opzout->sendMessage(&pattern_change);
                     pattern_change.clear();
                 }
@@ -119,14 +118,12 @@ int main() {
                 if ((int)message[2] > last_cc104_value) {
                     if (!running) {
                         opzout->sendMessage(&start);
-                        std::cout << "sending start" << std::endl;
                     }
                     running = true;
                     tick = 0;
                 } else {
                     if (running) {
                         opzout->sendMessage(&stop);
-                        std::cout << "sending stop" << std::endl;
                     }
                     running = false;
                 }
